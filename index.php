@@ -64,6 +64,7 @@ function multiHTTP($urlArr) {
         $sockets[$x] = fsockopen($urlInfo[$x][host], $urlInfo[$x][port], $errno[$x], $errstr[$x], 30);
         $retData['time1'] = time();
         $retData['ist'][$x] = $urlInfo[$x][path];
+		socket_set_nonblock($sockets[$x]);  //Выполняем операции (например, получение, отправка, соединение, принятие соединения, ...) на неблокирующем сокете
 
         fputs($sockets[$x], "GET " . $urlInfo[$x][path] . "$query HTTP/1.0\r\nHost: " .
                 $urlInfo[$x][host] . "\r\n\r\n");
